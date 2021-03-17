@@ -1,0 +1,273 @@
+
+/*样式表文件*/
+.body{
+  width: 750rpx;
+  height: 100vh;
+  background-color: #f7f7f7;
+}
+
+.wechat{
+  width: 750rpx;
+  margin-top: 50rpx;
+  
+}
+
+.aboutimg{
+  width: 37rpx;
+  height: 37rpx;
+  margin-right: 20rpx;
+  position: inherit;
+  top: 6rpx;
+}
+
+
+
+
+.timebar{
+  background-color:#fff;
+  width: 100%;
+  height: 150rpx;
+  text-align: center;
+  margin: 0;
+  align-content: center;
+  box-shadow: 0px 10px 5px #e6e6e6;
+}
+#text{
+  font-size: 400%;
+  text-shadow:2px 2px #FF0000;
+}
+
+
+#kefu{
+  border-radius:9%;
+}
+#auther{
+  border-radius:9%;
+  position: inherit;
+  top: 5rpx;
+}
+#pay{
+  border-radius:9%;
+  position: inherit;
+  top: 5rpx;
+}
+
+
+
+
+.container-me{
+ background: url(https://nk.uwp.ac.cn/bg.png) no-repeat;
+ width: 750rpx;
+ height: 350rpx;
+ background-size:100% 100%;
+}
+
+#userinfo{
+  width: 128rpx;
+  height:128rpx;
+  border-radius:50%;
+  display: flex;
+  overflow:hidden;
+  text-align: center;
+ 
+}
+#username{
+ 
+}
+#usersex{
+  font-size: 25%;
+  color: gray;
+}
+
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 750rpx;
+  height: 350rpx;
+  padding: 20rpx 25rpx 30rpx 0;
+  margin: 0 0 0 0;
+  border-top: 0 solid #eee;
+  border-bottom: 1px solid #dcdcdc;
+  box-shadow: 0 2px 5px #eeeeee;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  margin-top: 50rpx;
+  border-radius: 50%;
+  border-color: #000;
+}
+
+.userinfo-nickname {
+  color: #fff;
+  font-size: 30rpx;
+  margin: 0 0 20rpx 0;
+}
+
+.btn {
+  line-height: 120%;
+  background-color: #fff;
+  text-align: left;
+  margin-left: 0px;
+  padding-left: 0px;
+  font-size: 14px;
+}
+
+.btn::after {
+  border: none;
+}
+
+
+
+
+
+
+
+
+
+.zan-panel {
+  position: relative;
+  background: #fff;
+  margin-left: 50rpx;
+  margin-right: 50rpx;
+  margin-top: 120rpx;
+  overflow: hidden;
+  border-radius:9%;
+  box-shadow: 0px 0px 5px #888;
+  
+}
+
+.zan-panel::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  transform: scale(0.5);
+  transform-origin: 0 0;
+  pointer-events: none;
+  box-sizing: border-box;
+  border: 0 solid #e5e5e5;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+}
+
+.zan-panel-title {
+  font-size: 14px;
+  line-height: 1;
+  color: #999;
+  padding: 20px 15px 0 15px;
+  border-radius:10%;
+  box-shadow: 0px 0px 10px #888;
+}
+
+
+.zan-panel--without-margin-top {
+  margin-top: 0;
+}
+
+.zan-panel--without-border::after {
+  border: 0 none;
+}
+
+.zan-panel--without-top-border::after {
+  border-top: 0 none;
+}
+
+.zan-cell {
+  position: relative;
+  padding: 12px 15px;
+  display: flex;
+  align-items: center;
+  line-height: 1.4;
+  font-size: 14px;
+}
+
+.zan-cell::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  transform: scale(0.5);
+  transform-origin: 0 0;
+  pointer-events: none;
+  box-sizing: border-box;
+  border: 0 solid #e5e5e5;
+  border-bottom-width: 1px;
+  left: 15px;
+  right: 0;
+}
+
+.zan-cell__icon {
+  margin-right: 5px;
+}
+
+.zan-cell__bd {
+  flex: 1;
+}
+
+.zan-cell__text {
+  line-height: 24px;
+  font-size: 14px;
+}
+
+.zan-cell__desc {
+  line-height: 1.2;
+  font-size: 12px;
+  color: #666;
+}
+
+.zan-cell__ft {
+  position: relative;
+  text-align: right;
+  color: #666;
+}
+
+.zan-cell__no-pading {
+  padding: 0;
+}
+
+.zan-cell__no-pading .zan-cell__bd_padding {
+  padding: 12px 0 12px 15px;
+}
+
+.zan-cell__no-pading .zan-cell__bd_padding .zan-form__input {
+  height: 26px;
+}
+
+.zan-cell__no-pading .zan-cell__ft_padding {
+  padding: 12px 15px 12px 0;
+}
+
+.zan-cell--last-child::after, .zan-cell:last-child::after {
+  display: none;
+}
+
+.zan-cell--access .zan-cell__ft {
+  padding-right: 13px;
+}
+
+.zan-cell--access .zan-cell__ft::after {
+  position: absolute;
+  top: 50%;
+  right: 2px;
+  content: " ";
+  display: inline-block;
+  height: 6px;
+  width: 6px;
+  border-width: 2px 2px 0 0;
+  border-color: #c8c8c8;
+  border-style: solid;
+  transform: translateY(-50%) matrix(0.71, 0.71, -.71, 0.71, 0, 0);
+}
+
+.zan-cell--switch {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}

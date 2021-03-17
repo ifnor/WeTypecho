@@ -1,0 +1,44 @@
+<!-- 视图文件 -->
+<import src="../../../towxml/entry.wxml" />
+<import src="../../../template/foot.wxml"></import>
+<view class="body">
+  <view class="container-me">
+    <view class="userinfo">
+    <open-data class="userinfo-avatar" id="userinfo" type="userAvatarUrl"></open-data>
+    <open-data class="userinfo-nickname" id="username" type="userNickName"></open-data>    
+    <open-data class="userinfo-nickname" id="usersex" type="userGender" lang="zh_CN"></open-data>  
+    </view>
+  </view>
+  <view class="timebar">
+    <text id="text">Welcome</text>
+  </view>
+  <view class="zan-panel">
+    <view class="zan-cell zan-cell--access" bindtap="showHistory">
+      <view class="zan-cell__hd"></view><image class="aboutimg" src="../../../resources/zanon.png"></image>
+      <view id="auther" class="zan-cell__bd"><text class="aboutext">收藏</text></view>
+      <view class="zan-cell__ft"></view>
+    </view>
+    <view class="zan-cell zan-cell--access" bindtap="">
+      <view class="zan-cell__bd">
+          <button id="kefu" class='btn' open-type="contact"><image class="aboutimg" src="./image/order.png"></image>功能反馈</button>
+      </view>
+      <view class="zan-cell__ft"></view>
+    </view>
+    <view class="zan-cell zan-cell--access" bindtap="showAboutMe">
+      <view class="zan-cell__hd"></view><image class="aboutimg" src="./image/kefu.png"></image>
+      <view id="auther" class="zan-cell__bd"><text class="aboutext">联系作者</text></view>
+      <view class="zan-cell__ft"></view>
+    </view>
+    <view class="zan-cell zan-cell--access" bindtap="showAboutWechat">
+      <view class="zan-cell__hd"></view>
+      <image class="aboutimg" src="./image/email.png"></image>
+      <view id="pay" class="zan-cell__bd"><text class="aboutext">关于这个程序</text></view>
+      <view class="zan-cell__ft"></view>
+    </view>
+ 
+  </view>
+  <template is="foot"></template>
+  <view class="wechat">
+  <official-account></official-account>
+  </view>
+</view>

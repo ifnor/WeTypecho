@@ -9,8 +9,10 @@ class WeTypecho_Action extends Typecho_Widget implements Widget_Interface_Do {
         $this->db  = Typecho_Db::get();
         $this->res = new Typecho_Response();
         $this->apisecret = Typecho_Widget::widget('Widget_Options')->plugin('WeTypecho')->apiSecret;
-        $this->appid = Typecho_Widget::widget('Widget_Options')->plugin('WeTypecho')->appid;
-        $this->appsecret = Typecho_Widget::widget('Widget_Options')->plugin('WeTypecho')->appsecret;
+        $this->qqappid = Typecho_Widget::widget('Widget_Options')->plugin('WeTypecho')->qqappid;
+        $this->qqappsecret = Typecho_Widget::widget('Widget_Options')->plugin('WeTypecho')->qqappsecret;
+        $this->wxappid = Typecho_Widget::widget('Widget_Options')->plugin('WeTypecho')->wxappid;
+        $this->wxappsecret = Typecho_Widget::widget('Widget_Options')->plugin('WeTypecho')->wxappsecret;
         $swipe = Typecho_Widget::widget('Widget_Options')->plugin('WeTypecho')->swipePosts;
         if (method_exists($this, $this->request->type)) {
             call_user_func(array(
@@ -94,7 +96,7 @@ class WeTypecho_Action extends Typecho_Widget implements Widget_Interface_Do {
         foreach ($posts as $post) {
             $post        = $this->widget("Widget_Abstract_Contents")->push($post);
             $post['tag'] = $this->db->fetchAll($this->db->select('name')->from('table.metas')->join('table.relationships', 'table.metas.mid = table.relationships.mid', Typecho_DB::LEFT_JOIN)->where('table.relationships.cid = ?', $post['cid'])->where('table.metas.type = ?', 'tag'));
-            $post['thumb'] = $this->db->fetchAll($this->db->select('str_value')->from('table.fields')->where('cid = ?', $post['cid']))?$this->db->fetchAll($this->db->select('str_value')->from('table.fields')->where('cid = ?', $post['cid'])):array(array("str_value"=>"https://api.isoyu.com/bing_images.php"));
+            $post['thumb'] = $this->db->fetchAll($this->db->select('str_value')->from('table.fields')->where('cid = ?', $post['cid']))?$this->db->fetchAll($this->db->select('str_value')->from('table.fields')->where('cid = ?', $post['cid'])):array(array("str_value"=>"https://ifdo.cool/bing"));
             $post['views'] = $this->db->fetchAll($this->db->select('views')->from('table.contents')->where('table.contents.cid = ?', $post['cid']));
             $post['likes'] = $this->db->fetchAll($this->db->select('likes')->from('table.contents')->where('table.contents.cid = ?', $post['cid']));
             $post['showshare'] = $temp;
@@ -226,9 +228,9 @@ class WeTypecho_Action extends Typecho_Widget implements Widget_Interface_Do {
     {
         $openid=self::GET('openid', 'null');
         if($cid != 'null'){
-            $cids=$this->db->fetchAll($this->db->select('cid')->from('table.wetypecholike')->where('openid = ?', $openid));
+            $cids=$this->db->fetchAll($this->db->select('cid')->from('table.wetypecholike')->where('openid = ?', $openid)->order('id',Typecho_Db::SORT_DESC));
             foreach($cids as $cid) {
-                $temp = $this->db->fetchAll($this->db->select('title')->from('table.contents')->where('cid = ?', $cid));
+                $temp = $this->db->fetchAll($this->db->select('title','cid')->from('table.contents')->where('cid = ?', $cid));
                 if(sizeof($temp)>0) {
                     $likeinfo[] = $temp[0];
                 }
@@ -238,24 +240,6 @@ class WeTypecho_Action extends Typecho_Widget implements Widget_Interface_Do {
         else
         {
             $this->export("No likes");
-        }
-    }
-     private function getuserlikes()//获取用户点赞列表
-    {
-        $openid=self::GET('openid', 'null');
-        if($cid != 'null'){
-            $cids=$this->db->fetchAll($this->db->select('cid')->from('table.wetypecholike')->where('openid = ?', $openid));
-            foreach($cids as $cid) {
-                $temp = $this->db->fetchAll($this->db->select('title')->from('table.contents')->where('cid = ?', $cid.);
-                if(sizeof($temp)>0) {
-                    $likeinfo[] = $temp[0];
-                }
-            }
-             $this->export($likeinfo);
-        }
-        else
-        {
-            $this->export("No likeS");
         }
     }
 
@@ -444,7 +428,7 @@ class WeTypecho_Action extends Typecho_Widget implements Widget_Interface_Do {
             $country = self::GET('country', 'null');
             $gender = self::GET('gender', 'null');
             $province = self::GET('province', 'null');
-            $url = sprintf('https://api.q.qq.com/sns/jscode2session?appid=%s&secret=&js_code=%s&grant_type=authorization_code',$this->qqappid,$this->qqappsecret,$code);
+            $url = sprintf('https://api.q.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code',$this->qqappid,$this->qqappsecret,$code);
             $info = file_get_contents($url);
             $json = json_decode($info);//对json数据解码
             $arr = get_object_vars($json);
@@ -487,7 +471,7 @@ class WeTypecho_Action extends Typecho_Widget implements Widget_Interface_Do {
             $country = self::GET('country', 'null');
             $gender = self::GET('gender', 'null');
             $province = self::GET('province', 'null');
-            $url = sprintf('https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code',$this->appid,$this->appsecret,$code);
+            $url = sprintf('https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code',$this->wxappid,$this->wxappsecret,$code);
             $info = file_get_contents($url);
             $json = json_decode($info);//对json数据解码
             $arr = get_object_vars($json);
@@ -524,6 +508,7 @@ class WeTypecho_Action extends Typecho_Widget implements Widget_Interface_Do {
         $text = self::GET('text', "None");
         $parent = self::GET('parent', 0);
         $headicon = self::GET('icon', "NULL");
+        $mp = self::GET('mp', "NULL");
         $ip = $_SERVER["REMOTE_ADDR"];
 
         function text($text){
@@ -535,7 +520,7 @@ class WeTypecho_Action extends Typecho_Widget implements Widget_Interface_Do {
         }
 
         $coid =$this->db->query($this->db->insert('table.comments')->rows(array('cid' => $cid, 'created' => time(), 'author' => $author, 'authorId' => '0',
-                'ownerId' => '1', 'mail' => 'wx@wx.com', 'url' => $openid, 'ip' =>$ip, 'agent' => 'wx-miniprogram', 'text' => text($text), 'type' => 'comment',
+                'ownerId' => '1', 'mail' => 'wx@wx.com', 'url' => $openid, 'ip' =>$ip, 'agent' => $mp.'-miniprogram', 'text' => text($text), 'type' => 'comment',
                 'status' => 'approved', 'parent' => $parent,
                 'authorImg' => $headicon )));
         if($coid>0) {
@@ -625,7 +610,7 @@ class WeTypecho_Action extends Typecho_Widget implements Widget_Interface_Do {
                     if(sizeof($post)>0 && $post[0]!=null) {
                         $post[0]        = $this->widget("Widget_Abstract_Contents")->push($post[0]);
                         $post[0]['tag'] = $this->db->fetchAll($this->db->select('name')->from('table.metas')->join('table.relationships', 'table.metas.mid = table.relationships.mid', Typecho_DB::LEFT_JOIN)->where('table.relationships.cid = ?', $cid)->where('table.metas.type = ?', 'tag'));
-                        $post[0]['thumb'] = $this->db->fetchAll($this->db->select('str_value')->from('table.fields')->where('cid = ?', $cid))?$this->db->fetchAll($this->db->select('str_value')->from('table.fields')->where('cid = ?', $cid)):array(array("str_value"=>"https://api.isoyu.com/bing_images.php"));
+                        $post[0]['thumb'] = $this->db->fetchAll($this->db->select('str_value')->from('table.fields')->where('cid = ?', $cid))?$this->db->fetchAll($this->db->select('str_value')->from('table.fields')->where('cid = ?', $cid)):array(array("str_value"=>"https://ifdo.cool/bing"));
                         $post[0]['views'] = $this->db->fetchAll($this->db->select('views')->from('table.contents')->where('table.contents.cid = ?', $cid));
                         $post[0]['likes'] = $this->db->fetchAll($this->db->select('likes')->from('table.contents')->where('table.contents.cid = ?', $cid));
                         $result[]    = $post[0];
@@ -659,7 +644,7 @@ class WeTypecho_Action extends Typecho_Widget implements Widget_Interface_Do {
                 if(sizeof($post)>0 && $post[0]!=null) {
                     $post[0]        = $this->widget("Widget_Abstract_Contents")->push($post[0]);
                     $post[0]['tag'] = $this->db->fetchAll($this->db->select('name')->from('table.metas')->join('table.relationships', 'table.metas.mid = table.relationships.mid', Typecho_DB::LEFT_JOIN)->where('table.relationships.cid = ?', $cid)->where('table.metas.type = ?', 'tag'));
-                    $post[0]['thumb'] = $this->db->fetchAll($this->db->select('str_value')->from('table.fields')->where('cid = ?', $cid))?$this->db->fetchAll($this->db->select('str_value')->from('table.fields')->where('cid = ?', $cid)):array(array("str_value"=>"https://api.isoyu.com/bing_images.php"));
+                    $post[0]['thumb'] = $this->db->fetchAll($this->db->select('str_value')->from('table.fields')->where('cid = ?', $cid))?$this->db->fetchAll($this->db->select('str_value')->from('table.fields')->where('cid = ?', $cid)):array(array("str_value"=>"https://ifdo.cool/bing"));
                     $post[0]['views'] = $this->db->fetchAll($this->db->select('views')->from('table.contents')->where('table.contents.cid = ?', $cid));
                     $post[0]['likes'] = $this->db->fetchAll($this->db->select('likes')->from('table.contents')->where('table.contents.cid = ?', $cid));
                     $result[]    = $post[0];

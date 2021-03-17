@@ -1,0 +1,12 @@
+<!--template/foot.wxml-->
+<template name="foot">
+    <view class="footerview">  
+    <text>@2021 即简</text>
+    </view>
+    <view class="footerviewwechat">  
+    <text style>ceshon</text>
+    </view>
+    <view class="footerviewwebsite">  
+    <text style>ifdo.ml</text>
+    </view>
+</template>

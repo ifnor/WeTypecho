@@ -1,12 +1,12 @@
 <?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 /**
- * 微信小程序WeTypechoAPI接口插件
+ * 微信/QQ 小程序 WeTypechoAPI 接口插件(新版)
  *
  * @package WeTypecho
- * @author  成都第七帅
- * @version 0.1
- * @link https://2012.pro
+ * @author  ifnor
+ * @version 0.3
+ * @link https://ifdo.ml
  */
 class WeTypecho_Plugin implements Typecho_Plugin_Interface
 {
@@ -99,14 +99,14 @@ class WeTypecho_Plugin implements Typecho_Plugin_Interface
         $apiSecret = new Typecho_Widget_Helper_Form_Element_Text('apiSecret', NULL, 'xxx', _t('API密钥'),  _t('要与小程序端config.js中API_SECRET字段保持一致，否则无法从服务器读取数据'));
         $form->addInput($apiSecret);
         //微信小程序
-        $wxappID = new Typecho_Widget_Helper_Form_Element_Text('appid', NULL, 'xxx', _t('微信小程序的APPID'),  _t('小程序的APP ID'));
+        $wxappID = new Typecho_Widget_Helper_Form_Element_Text('wxappid', NULL, 'xxx', _t('微信小程序的APPID'),  _t('小程序的APP ID'));
         $form->addInput($wxappID);
-        $wxappSecret = new Typecho_Widget_Helper_Form_Element_Text('appsecret', NULL, 'xxx', _t('微信小程序的APP secret ID'),  _t('小程序的APP secret ID'));
+        $wxappSecret = new Typecho_Widget_Helper_Form_Element_Text('wxappsecret', NULL, 'xxx', _t('微信小程序的APP secret ID'),  _t('小程序的APP secret ID'));
         $form->addInput($wxappSecret);
         //QQ小程序
-        $qqappID = new Typecho_Widget_Helper_Form_Element_Text('appid', NULL, 'xxx', _t('QQ小程序的APPID'),  _t('QQ小程序的APP ID'));
+        $qqappID = new Typecho_Widget_Helper_Form_Element_Text('qqappid', NULL, 'xxx', _t('QQ小程序的APPID'),  _t('QQ小程序的APP ID'));
         $form->addInput($qqappID);
-        $qqappSecret = new Typecho_Widget_Helper_Form_Element_Text('appsecret', NULL, 'xxx', _t('QQ小程序的APP secret ID'),  _t('QQ小程序的APP secret ID'));
+        $qqappSecret = new Typecho_Widget_Helper_Form_Element_Text('qqappsecret', NULL, 'xxx', _t('QQ小程序的APP secret ID'),  _t('QQ小程序的APP secret ID'));
         $form->addInput($qqappSecret);
 
         $aboutCid = new Typecho_Widget_Helper_Form_Element_Text('aboutCid', NULL, '1', _t('关于页面CID'),  _t('小程序关于页面显示内容'));

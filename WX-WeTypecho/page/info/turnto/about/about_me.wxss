@@ -1,0 +1,5 @@
+/****/
+@import "./about_wechat.wxss";
+.zan-text-underline {
+  text-decoration: underline;
+}

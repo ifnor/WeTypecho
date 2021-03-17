@@ -1,0 +1,28 @@
+<!--page/info/turnto/about/history.wxml-->
+<view class="body">
+  <view class="top">
+    <view class="uesrinfo">
+      <!-- <open-data id="userimg" type="userAvatarUrl"></open-data> -->
+      <open-data  id="userinfo" id="userimg" type="userAvatarUrl"></open-data>
+    </view>
+    <view class="toptext">
+      <text id="toptext">收</text>
+      <text id="toptext">藏</text>
+    </view>
+  </view>
+  <view class="show">
+    <view class="line"></view>
+    <block wx:for="{{data.data}}" wx:key="item" data-item="item" wx:for-index="idx" >
+      <view class="massagebox" id="{{idx}}">
+        <view class="pointd"><view class="point"><view class="pointi"></view></view></view>
+          <navigator  class="nav_postlist_item"  hover-class="navigator-hover" url="../../../detail/detail?item={{item.cid}}">
+            <view class="coment" id="{{item.cid}}">
+              <text>Title:  </text>
+              <text>{{item.title}}</text>
+            </view>
+          </navigator>
+      </view>
+    </block>
+  </view>
+</view>
+
