@@ -340,6 +340,7 @@ class WeTypecho_Action extends Typecho_Widget implements Widget_Interface_Do {
         self::checkApisec($sec);
 
         $path = self::GET('path', 'null');
+        $sence = self::GET('sence', 'null');
         if($path == 'null') {
             $path = 'page/index/index';
         }
@@ -348,13 +349,15 @@ class WeTypecho_Action extends Typecho_Widget implements Widget_Interface_Do {
         $json = json_decode($info);
         $arr = get_object_vars($json);
         $accesscode = $arr['access_token'];
-        $url_1 = sprintf('https://api.weixin.qq.com/wxa/getwxacode?access_token=%s',$accesscode);
+        $url_1 = sprintf('https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=%s',$accesscode);
         //$qrurl = $arr_t['access_token'];
         $post_data = array(
-            'path' => $path
+            'scene'=> 'item='.$sence,
+            'path'=>$path
         );
         $jsonStr = json_encode($post_data);
         $qrcode = $this->http_post_data($url_1, $jsonStr);
+        echo $qrcode;
         $filename = 'qrcode.png';
         $write_fd = @fopen($filename,'w+');
         if( fwrite($write_fd, $qrcode) ) {
@@ -369,24 +372,15 @@ class WeTypecho_Action extends Typecho_Widget implements Widget_Interface_Do {
         self::checkApisec($sec);
 
         $path = self::GET('path', 'null');
+
         if($path == 'null') {
             $path = 'page/index/index';
         }
-        $url = sprintf('https://api.q.qq.com/api/getToken?grant_type=client_credential&appid=%s&secret=%s',$this->qqappid,$this->qqappsecret);
+        $url = sprintf('https://nk.uwp.ac.cn/qr/?text=https://m.q.qq.com/a/p/%s?s=%s',$this->qqappid,$path);
         $info = file_get_contents($url);
-        $json = json_decode($info);
-        $arr = get_object_vars($json);
-        $accesscode = $arr['access_token'];
-        $url_1 = sprintf('https://api.weixin.qq.com/wxa/getwxacode?access_token=%s',$accesscode);
-        //$qrurl = $arr_t['access_token'];
-        $post_data = array(
-            'path' => $path
-        );
-        $jsonStr = json_encode($post_data);
-        $qrcode = $this->http_post_data($url_1, $jsonStr);
         $filename = 'qrcode.png';
         $write_fd = @fopen($filename,'w+');
-        if( fwrite($write_fd, $qrcode) ) {
+        if( fwrite($write_fd, $info) ) {
             fclose($write_fd);
             $this->export($filename);
         }
